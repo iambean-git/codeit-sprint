@@ -9,7 +9,7 @@ export default function About() {
       <div>
         <h1>About 페이지</h1>
       </div>
-      <Link className="text-blue-500 underline" href="/">
+      <Link className="text-orange-500 underline" href="/">
         홈으로
       </Link>
     </PageTransition>
