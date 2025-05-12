@@ -1,24 +1,57 @@
-import Home from "./page";
-import { render, screen } from "@testing-library/react";
+// app/page.test.tsx
 
-test("Home 컴포넌트가 로딩 상태 후 사용자 데이터를 올바르게 렌더링", async () => {
-  global.fetch = jest.fn(() =>
-    Promise.resolve({
-      ok: true,
-      json: () =>
-        Promise.resolve([{ id: 1, name: "김철수", email: "kim@example.com" }]),
-    }),
-  ) as jest.Mock;
+import { fireEvent, render, screen } from "@testing-library/react";
 
-  render(<Home />);
+import CartPage from "./page";
 
-  // 초기상태확인
-  expect(screen.getByText("로딩중...")).toBeInTheDocument();
+describe("CartPage 컴포넌트 테스트", () => {
+  test("로그인하지 않은 상태에서 추가 버튼 클릭 시 경고 메시지 표시", () => {
+    const alertMock = jest.spyOn(window, "alert").mockImplementation(() => {});
+    render(<CartPage />);
 
-  // 비동기 작업 완료 후 데이터 확인
-  await screen.findByText("이름: 김철수");
-  await screen.findByText("이메일: kim@example.com");
+    const addButton = screen.getByText("추가");
+    fireEvent.click(addButton);
 
-  // 로딩 상태 제거 확인
-  expect(screen.queryByText("로딩중...")).not.toBeInTheDocument();
+    expect(alertMock).toHaveBeenCalledWith(
+      "로그인하지 않으면 추가할 수 없습니다.",
+    );
+    alertMock.mockRestore();
+  });
+
+  test("로그인 후 추가 버튼 클릭 시 count 증가", () => {
+    render(<CartPage />);
+
+    const loginButton = screen.getByRole("button", { name: "로그인" });
+    fireEvent.click(loginButton);
+    expect(screen.getByText("로그인됨: user@example.com")).toBeInTheDocument();
+
+    const addButton = screen.getByRole("button", { name: "추가" });
+    fireEvent.click(addButton);
+
+    expect(screen.getByText("상품 개수: 1")).toBeInTheDocument();
+  });
+
+  test("상품이 0개일 때 제거 버튼 비활성화", () => {
+    render(<CartPage />);
+
+    const removeButton = screen.getByRole("button", { name: "제거" });
+    expect(removeButton).toBeDisabled();
+  });
+
+  test("상품 추가(로그인된 상태) 후 제거 시 count 감소", () => {
+    render(<CartPage />);
+
+    const loginButton = screen.getByRole("button", { name: "로그인" });
+    fireEvent.click(loginButton);
+    expect(screen.getByText("로그인됨: user@example.com")).toBeInTheDocument();
+
+    const addButton = screen.getByRole("button", { name: "추가" });
+    fireEvent.click(addButton);
+    fireEvent.click(addButton);
+
+    const removeButton = screen.getByText("제거");
+    fireEvent.click(removeButton);
+
+    expect(screen.getByText("상품 개수: 1")).toBeInTheDocument();
+  });
 });
