@@ -1,5 +1,8 @@
 import "./globals.css";
 import Providers from "../providers/Providers";
+import { initMocks } from "../mocks";
+
+initMocks();
 
 export default function RootLayout({
   children,
