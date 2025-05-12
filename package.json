@@ -11,6 +11,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.75.7",
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",

@@ -1,7 +1,5 @@
-// app/layout.tsx
-
 import "./globals.css";
-import Providers from "@/components/Providers";
+import Providers from "../providers/Providers";
 
 export default function RootLayout({
   children,
@@ -9,8 +7,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="ko">
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
