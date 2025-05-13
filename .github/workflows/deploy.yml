@@ -7,7 +7,15 @@ name: Github Actions 연습하기
 on:
   push:
     branches:
+      - main
+  pull_requeset:
+    branches:
       - "**"
+
+# concurrency 설정 추가
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} # 워크플로우 이름과 브랜치 이름을 그룹으로 묶어서 실행
+  cancel-in-progress: true # 이미 실행 중인 이전 워크플로우를 취소합니다
 
 # 하나의 Workflow는 1개 이상의 Job으로 구성된다.
 # 여러 Job은 기본적으로 병렬적으로 수행된다.
