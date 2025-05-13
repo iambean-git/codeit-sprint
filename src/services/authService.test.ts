@@ -1,9 +1,8 @@
 //
-import axios from "axios";
-import { getCurrentUser, login } from "./authService";
+import { login } from "./authService";
 import {
-  mockGetCurrentUserSuccss,
-  mockLoginFailure,
+  // mockGetCurrentUserSuccss,
+  // mockLoginFailure,
   mockLoginSuccess,
   setupLocalStorageMock,
   axiosMock,

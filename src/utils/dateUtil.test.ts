@@ -1,5 +1,4 @@
-import { desc } from "motion/react-m";
-import { formatDate, daysDifference, isWeekend } from "./dateUtil";
+import { formatDate, daysDifference } from "./dateUtil";
 
 describe("formatDate", () => {
   test("날짜를 YYYY-MM-DD 형식으로 포맷", () => {
@@ -15,11 +14,11 @@ describe("formatDate", () => {
     expect(formatDate(new Date(2025, 7, 5))).toEqual("2025-08-05");
   });
   test("유효하지 않은 날짜는 빈 문자열을 반환", () => {
-    //@ts-expect-error
+    //@ts-expect-error 타입불일치
     expect(formatDate("250507")).toEqual("");
-    //@ts-expect-error
+    //@ts-expect-error 타입불일치
     expect(formatDate(null)).toEqual("");
-    //@ts-expect-error
+    //@ts-expect-error 타입불일치
     expect(formatDate(undefined)).toEqual("");
     expect(formatDate(new Date("Invalid Date"))).toEqual("");
 

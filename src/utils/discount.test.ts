@@ -16,9 +16,9 @@ test("100% 초과 혹은 음수 할인율은 0을 반환", () => {
 });
 
 test("숫자가 아닌 입력은 0을 반환환", () => {
-  // @ts-expect-error
+  // @ts-expect-error 타입 체크 무시
   expect(calculateDiscount("hello", 120)).toBe(0);
-  // @ts-expect-error
+  // @ts-expect-error 타입 체크 무시
   expect(calculateDiscount(2000, { a: 10 })).toBe(0);
   // @ts-expect-error 타입 체크 무시
   expect(calculateDiscount("1000", 10)).toBe(0);

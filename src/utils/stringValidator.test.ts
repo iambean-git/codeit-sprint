@@ -16,10 +16,10 @@ test("길이제한 벗어나면 false 반환", () => {
 });
 
 test("잘못된 타입에 대해 false 반환", () => {
-  //@ts-expect-error
+  //@ts-expect-error 타입 체크 무시
   expect(validateUsername(null)).toBeFalsy();
-  //@ts-expect-error
+  //@ts-expect-error 타입 체크 무시
   expect(validateUsername(undefined)).toBeFalsy();
-  //@ts-expect-error
+  //@ts-expect-error 타입 체크 무시
   expect(validateUsername(1234)).toBeFalsy();
 });

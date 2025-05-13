@@ -1,4 +1,3 @@
-import { desc } from "motion/react-m";
 import { processArray, uniqueItems, chunk, intersection } from "./arrayUtils";
 
 test("정상적인 배열 입력에 올바른 결과 객체 반환?", () => {
@@ -15,7 +14,7 @@ test("빈 배열에 null 반환?", () => {
 });
 
 test("배열이 아닌 입력에 대해 null 반환?", () => {
-  // @ts-expect-error
+  // @ts-expect-error  타입 체크 무시
   expect(processArray("abc")).toBeNull();
 });
 
@@ -43,13 +42,13 @@ describe("uniqueItems 함수 테스트", () => {
   });
 
   test("배열이 아닌 입력은 빈 배열을 반환", () => {
-    // @ts-expect-error
+    // @ts-expect-error 타입 체크 무시
     expect(uniqueItems(123)).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입 체크 무시
     expect(uniqueItems("abc")).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입 체크 무시
     expect(uniqueItems(null)).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입 체크 무시
     expect(uniqueItems(undefined)).toEqual([]);
   });
 });
@@ -69,13 +68,13 @@ describe("chunk 함수 테스트", () => {
   });
   test("빈 배열(또는 배열이 아닌 입력)은 빈 배열 반환", () => {
     expect(chunk([], 5)).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(chunk("abc", 5)).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(chunk(123, 5)).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(chunk(null, 5)).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(chunk(undefined, 5)).toEqual([]);
   });
 });
@@ -93,13 +92,13 @@ describe("intersection 함수 테스트", () => {
     expect(intersection([1, 2, 3, 4, 5], [])).toEqual([]);
   });
   test("배열이 아닌 입력은 빈 배열 반환", () => {
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(intersection("abc", [3, 4, 5, 6, 7])).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(intersection(null, [3, 4, 5, 6, 7])).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(intersection(undefined, [3, 4, 5, 6, 7])).toEqual([]);
-    // @ts-expect-error
+    // @ts-expect-error 타입불일치
     expect(intersection(12345, [3, 4, 5, 6, 7])).toEqual([]);
   });
 });

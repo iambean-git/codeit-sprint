@@ -1,4 +1,4 @@
-import { tr } from "motion/react-m";
+// import { tr } from "motion/react-m";
 import { capitalize, truncate } from "./stringUtils";
 describe("capitalize 함수 테스트", () => {
   test("문자열 첫 글자를 대문자로 변환 hello->Hello", () => {
@@ -7,9 +7,9 @@ describe("capitalize 함수 테스트", () => {
 
   test("빈 문자열에 대해 빈 문자열 반환", () => {
     expect(capitalize("")).toBe("");
-    // @ts-expect-error
+    // @ts-expect-error 타입 에러 무시
     expect(capitalize(null)).toBe("");
-    // @ts-expect-error
+    // @ts-expect-error 타입 에러 무시
     expect(capitalize(undefined)).toBe("");
   });
 
@@ -31,9 +31,9 @@ describe("truncate 함수 테스트", () => {
   });
   test("빈 문자열, null, undefined에 대해 빈 문자열 반환", () => {
     expect(truncate("", 3)).toBe("");
-    // @ts-expect-error
+    // @ts-expect-error 타입 에러 무시
     expect(truncate(null, 3)).toBe("");
-    // @ts-expect-error
+    // @ts-expect-error 타입 에러 무시
     expect(truncate(undefined, 3)).toBe("");
   });
 });
