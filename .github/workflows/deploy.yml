@@ -12,6 +12,10 @@ on:
     branches:
       - "**"
 
+# PR에 댓글 달기 위해 권한 설정
+permission:
+  pull_requests: write
+
 # concurrency 설정 추가
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }} # 워크플로우 이름과 브랜치 이름을 그룹으로 묶어서 실행
@@ -30,6 +34,14 @@ jobs:
     steps:
       - name: Github Repository 파일 불러오기
         uses: actions/checkout@v4
+
+      - name: PR에 코멘트를 추가하겠습니다.
+      # main 브랜치가 아닐 때만 이 단계 실행
+      if: github.ref != 'refs/heads/main'
+      run: |
+        gh pr comment ${{ github.event.pull_request.number }} --body ""안녕하세요! PR을 검토하겠습니다.👋""
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Node 설치
         uses: actions/setup-node@v4
