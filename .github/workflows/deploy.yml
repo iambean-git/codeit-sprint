@@ -13,7 +13,7 @@ on:
       - "**"
 
 # PR에 댓글 달기 위해 권한 설정
-permission:
+permissions:
   pull_requests: write
 
 # concurrency 설정 추가
