@@ -7,7 +7,19 @@ name: Github Actions 연습하기
 on:
   push:
     branches:
+      - main
+  pull_request:
+    branches:
       - "**"
+
+# PR에 댓글 달기 위해 권한 설정
+permissions:
+  pull-requests: write
+
+# concurrency 설정 추가
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} # 워크플로우 이름과 브랜치 이름을 그룹으로 묶어서 실행
+  cancel-in-progress: true # 이미 실행 중인 이전 워크플로우를 취소합니다
 
 # 하나의 Workflow는 1개 이상의 Job으로 구성된다.
 # 여러 Job은 기본적으로 병렬적으로 수행된다.
@@ -22,6 +34,14 @@ jobs:
     steps:
       - name: Github Repository 파일 불러오기
         uses: actions/checkout@v4
+
+      - name: PR에 코멘트를 추가하겠습니다.
+        # main 브랜치가 아닐 때만 이 단계 실행
+        if: github.ref != 'refs/heads/main'
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "안녕하세요! PR을 검토하겠습니다.👋"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Node 설치
         uses: actions/setup-node@v4
