@@ -1,7 +1,7 @@
 // app/about/page.tsx
 
-import Link from "next/link";
-import PageTransition from "@/components/PageTransition";
+import Link from 'next/link';
+import PageTransition from '@/components/PageTransition';
 
 export default function About() {
   return (
